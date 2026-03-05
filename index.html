@@ -528,6 +528,136 @@ setTimeout(() => {
 }, 20000); // Wait for the first 20 seconds (7 + 13) to complete
 </script>
 
+<!-- SHRINKABLE ANCHOR AD - No dragging, 80% up -->
+<div id="anchor-ad-bottom">
 
+  <div id="anchor-content-bottom">
+    <ins class="adsbygoogle" id="anchor-ad-ins"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-2269884583846743"
+         data-ad-slot="5742141919"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div id="anchor-toggle-bottom">▼ Advertisement</div>
+
+</div>
+
+<style>
+#anchor-ad-bottom{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9999;
+  width:100%;
+  max-width:728px;
+  text-align:center;
+  background:#fff;
+  box-shadow:0 -3px 10px rgba(0,0,0,0.25);
+  border-top:1px solid #ddd;
+  font-family:sans-serif;
+  transition: all 0.5s ease;
+}
+
+#anchor-content-bottom{
+  overflow:hidden;
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+#anchor-toggle-bottom{
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background:#f1f1f1;
+  font-size:12px;
+  color:#333;
+  cursor:pointer;
+  padding:3px;
+  border-top:1px solid #ddd;
+  z-index:10000;
+}
+
+body{padding-bottom:120px;}
+
+#anchor-content-bottom ins{
+  display:inline-block;
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+/* Mobile default sizes */
+@media(max-width:768px){
+  #anchor-ad-bottom{max-width:320px;}
+  #anchor-content-bottom ins{width:320px;height:100px;}
+}
+</style>
+
+<script>
+const toggleBottom = document.getElementById("anchor-toggle-bottom");
+const adIns = document.getElementById("anchor-ad-ins");
+const anchorBox = document.getElementById("anchor-ad-bottom");
+
+let miniMode = false;
+
+// Toggle shrink/expand
+toggleBottom.onclick = function(){
+  if(!miniMode){
+    // SHRINK + move 80% up
+    adIns.style.width = "150px";
+    adIns.style.height = "50px";
+    anchorBox.style.maxWidth = "150px";
+    anchorBox.style.left = "50%";
+    anchorBox.style.transform = "translateX(-50%)";
+    anchorBox.style.bottom = (window.innerHeight * 0.8 - 25) + "px"; // 80% up
+    toggleBottom.innerHTML = "▲ Advertisement";
+    miniMode = true;
+  } else {
+    // EXPAND
+    if(window.innerWidth <= 768){
+      adIns.style.width = "320px";
+      adIns.style.height = "100px";
+      anchorBox.style.maxWidth = "320px";
+    } else {
+      adIns.style.width = "728px";
+      adIns.style.height = "90px";
+      anchorBox.style.maxWidth = "728px";
+    }
+    anchorBox.style.left = "50%";
+    anchorBox.style.bottom = "0";
+    anchorBox.style.top = "auto";
+    anchorBox.style.transform = "translateX(-50%)";
+    toggleBottom.innerHTML = "▼ Advertisement";
+    miniMode = false;
+  }
+}
+
+// Resize adjustments
+window.addEventListener("resize", ()=>{
+  if(!miniMode){
+    if(window.innerWidth <= 768){
+      adIns.style.width = "320px";
+      adIns.style.height = "100px";
+      anchorBox.style.maxWidth = "320px";
+    } else {
+      adIns.style.width = "728px";
+      adIns.style.height = "90px";
+      anchorBox.style.maxWidth = "728px";
+    }
+    anchorBox.style.bottom = "0";
+    anchorBox.style.left = "50%";
+    anchorBox.style.transform = "translateX(-50%)";
+    anchorBox.style.top = "auto";
+  } else {
+    // Keep shrink position 80% up
+    adIns.style.width = "150px";
+    adIns.style.height = "50px";
+    anchorBox.style.maxWidth = "150px";
+    anchorBox.style.bottom = (window.innerHeight * 0.8 - 25) + "px";
+  }
+});
+</script>
 </body>
 </html>
